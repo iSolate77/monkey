@@ -120,10 +120,15 @@ func (l *Lexer) skipWhitespace() {
 }
 
 func (l *Lexer) readNumber() string {
+	for l.ch == '0' && isDigit(l.peekChar()) {
+		l.readChar()
+	}
+
 	position := l.position
 	for isDigit(l.ch) {
 		l.readChar()
 	}
+
 	return l.input[position:l.position]
 }
 
